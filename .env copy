@@ -1,0 +1,7 @@
+EMAIL=
+db_user=
+db_pass=
+
+SENDGRID_API_KEY=
+AUTH_USER=scg
+AUTH_PASS=secret
