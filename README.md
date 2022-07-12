@@ -2,7 +2,7 @@
 
 
 #Stack \
- - mongodb\
+ - mongodb atlas\
  - express\
 # Setup project
 ################## \
