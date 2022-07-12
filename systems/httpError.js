@@ -1,0 +1,43 @@
+class HttpError {
+    ok = false;
+    responseTimestamp = new Date();
+    constructor( error ) {
+        if ( typeof ( error ) === 'string' ) {
+            this.statusCode = 500;
+            this.message = error;
+            this.name = 'InternalServerError';
+        } else {
+            if ( error.ename === 'ValidationError' ) {
+                error.statusCode = 422;
+            }
+            // else if(error.ename === 'EmailServiceError'){
+            //     error.statusCode = 400;
+            // }
+
+            let errorName = 'InternalServerError';
+
+            switch ( error.statusCode ) {
+                case 422:
+                    errorName = 'ValidationError';
+                    break;
+                case 401:
+                    errorName = 'UnauthorizedError';
+                    break;
+                case 403:
+                    errorName = 'ForbiddenError';
+                    break;
+                case 404:
+                    errorName = 'NotFoundError';
+                    break;
+                default:
+                    errorName = 'InternalServerError';
+            }
+            this.statusCode = error.statusCode ? error.statusCode : 500;
+            this.message = error.message || 'Something wrong!';
+            this.errors = error.errors;
+            this.name = errorName;
+        }
+    }
+}
+
+module.exports = { HttpError };
